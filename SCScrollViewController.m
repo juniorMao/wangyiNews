@@ -60,7 +60,7 @@
 }
 
 #pragma mark factory method
-+(instancetype)ScrollViewControllerWithViews:(NSMutableArray *)chooseViewArray buttonsTitle:(NSMutableArray *)chooseButtonArray{
++(instancetype)ScrollViewControllerWithViews:(NSArray *)chooseViewArray buttonsTitle:(NSArray *)chooseButtonArray{
     
     SCScrollViewController *scrollVc = [[SCScrollViewController alloc]init];
     
@@ -143,7 +143,7 @@
                     CGFloat pageMinX = page*(self.chooseButtonWidth);
                     
                     NSInteger multipleScreen = pageMinX / SCREENWIDTH;
-                    if (pageMinX - multipleScreen*SCREENWIDTH - self.chooseButtonBarContentOffsetBefore.x < SCREENWIDTH*0.5) {
+                    if ((pageMinX - multipleScreen*SCREENWIDTH - self.chooseButtonBarContentOffsetBefore.x <= SCREENWIDTH*0.5) && self.chooseButtonWidth != SCREENWIDTH * 0.5) {
                         [self.chooseButtonBar setContentOffset:CGPointMake(self.chooseButtonBar.contentOffset.x + (self.chooseButtonWidth), 0) animated:NO];
                     }
                     
@@ -256,16 +256,16 @@
     return _lineView;
 }
 
--(NSMutableArray *)chooseButtonArray{
+-(NSArray *)chooseButtonArray{
     if (nil == _chooseButtonArray) {
-        _chooseButtonArray = [NSMutableArray array];
+        _chooseButtonArray = [NSArray array];
     }
     return _chooseButtonArray;
 }
 
--(NSMutableArray *)chooseViewArray{
+-(NSArray *)chooseViewArray{
     if (nil == _chooseViewArray) {
-        _chooseViewArray = [NSMutableArray array];
+        _chooseViewArray = [NSArray array];
     }
     return _chooseViewArray;
 }
