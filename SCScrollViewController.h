@@ -13,8 +13,6 @@
 
 @interface SCChooseButton : UIButton
 
-+(instancetype)chooseButtonWithTitle:(NSString *)title frame:(CGRect)frame;
-
 @end
 
 @interface SCScrollViewController : UIViewController
@@ -22,14 +20,20 @@
 @property (nonatomic, strong) NSArray *chooseViewArray;         //@[firstView,secondView,...];
 @property (nonatomic, strong) NSArray *chooseButtonArray;       //@[@"title1",@"title2",...];
 
-@property (nonatomic, assign) CGFloat chooseButtonHeight;       //default 40
-@property (nonatomic, assign) CGFloat chooseButtonWidth;        //default screenWidth / 2
+//default YES;
+@property (nonatomic, assign, getter=isExistTabBarViewController) BOOL existTabBarViewController;
+@property (nonatomic, assign) CGFloat chooseButtonHeight;       //default 37
+@property (nonatomic, assign) CGFloat chooseButtonWidth;        //如果没有设置则自适应；
+@property (nonatomic, assign) NSInteger chooseIndex;
 
-@property (nonatomic, assign) NSInteger chooseIndex; //当前选中的item
++(instancetype)ScrollViewControllerWithViews:(NSMutableArray *)chooseViewArray buttonsTitle:(NSMutableArray *)chooseButtonArray;
 
-+(instancetype)ScrollViewControllerWithViews:(NSArray *)chooseViewArray buttonsTitle:(NSArray *)chooseButtonArray;
-//必须调用
+//子类重写方法(滑动事件调用)
+-(void)_scrollViewDidEndDecelerating;
+
+//必须调用刷新UI
 -(void)refreshVC;
-//滑动或者点击title之后调用
--(void)scrollToView;
+
+//清除滑动子控件
+-(void)removeSubScrollView;
 @end
